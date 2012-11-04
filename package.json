@@ -1,12 +1,12 @@
 {
                     
-    "name"          : "mustache-comb",
+    "name"          : "atropa-mustache-comb",
     "version"       : "0.1.0",
     "main"          : "./MustacheComb.js",
     "description"   : "A utility wrapper around mustache.",
     "keywords"      : ["mustache", "template", "utilities"],
-    "homepage"      : "https://github.com/matthewkastor/mustache-comb/",
-    "bugs"          : "https://github.com/matthewkastor/mustache-comb/issues",
+    "homepage"      : "https://github.com/matthewkastor/atropa-mustache-comb/",
+    "bugs"          : "https://github.com/matthewkastor/atropa-mustache-comb/issues",
     "author"        : {
                         "name"      : "Matthew Kastor",
                         "email"     : "matthewkastor@gmail.com",
@@ -14,7 +14,7 @@
     },
     "repository"    : {
                         "type"      : "git",
-                        "url"       : "git://github.com/matthewkastor/mustache-comb.git"
+                        "url"       : "git://github.com/matthewkastor/atropa-mustache-comb.git"
     },
     "engines"       : {
                         "node"      : ">=0.8.14"
