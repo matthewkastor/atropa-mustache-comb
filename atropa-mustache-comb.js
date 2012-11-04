@@ -15,6 +15,10 @@
  */
 
 'use strict';
+var events, util;
+
+events = require('events');
+util   = require('util');
 
 /**
  * The Base MustacheComb class. The templates
@@ -31,12 +35,13 @@
  * @requires textTransformers
  */
 function MustacheComb(views) {
+    events.EventEmitter.call(this);
     
     var my, fs, path, textTransformers;
 
     fs               = require('fs');
     path             = require('path');
-    textTransformers = require('textTransformers');
+    textTransformers = require('atropa-text-transformers');
     my               = this;
     my.Mustache      = require('mustache');
     my.views         = views || [];
@@ -99,10 +104,11 @@ function MustacheComb(views) {
         };
     };
     
-    my.addMustacheTagHandler('example', 'formatExample');
-    my.addMustacheTagHandler('include', 'mustacheIncluder');
-    my.addMustacheTagHandler('includeExample', 'includeExample');
+    my.addTagHandlerFunction('example', 'formatExample');
+    my.addTagHandlerFunction('include', 'mustacheIncluder');
+    my.addTagHandlerFunction('includeExample', 'includeExample');
 }
+util.inherits(MustacheComb, events.EventEmitter);
 
 /**
  * Tag handler for the example tag. Formats the text for html
@@ -198,7 +204,7 @@ MustacheComb.prototype.renderViews = function renderViews(callback) {
     this.views.forEach(function (view) {
         var rendered;
         my.emit('view render attempt ', {"view" : view});
-        callback(view);
+        callback.call(my, view);
         my.emit('view rendered ', {"view" : view});
     });
 };

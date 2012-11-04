@@ -1,6 +1,8 @@
 var MustacheComb, comb;
 
-MustacheComb = require('MustacheComb');
+MustacheComb = require('atropa-mustache-comb').MustacheComb;
+
+comb = new MustacheComb();
 
 /**
  * Main mustache function for generating pages. This may
@@ -19,9 +21,20 @@ MustacheComb.prototype.mainMustache = function mainMustache(view) {
     return out;
 };
 
-comb = new MustacheComb();
+function lame(view) {
+    var out, mustacheTemplateParts;
+    // the generic page structure used repeatedly.
+    mustacheTemplateParts = {
+        "body" : view.body
+    };
+    
+    comb.mustacheTagHandlers.title = view.title;
+    out = comb.Mustache.to_html(comb.templates.html, comb.mustacheTagHandlers, mustacheTemplateParts);
+    return out;
+};
 
-comb.addTemplateByFile('html.mustache');
+
+comb.addTemplateByFile('html', 'html.mustache');
 
 comb.views.push(
     {
@@ -33,5 +46,8 @@ comb.views.push(
         "title" : "Awesome2"
     }
 );
+function cb(v) {
+    console.log(lame(v));
+}
 
-comb.renderViews(MustacheComb.mainMustache);
+comb.renderViews(cb);
