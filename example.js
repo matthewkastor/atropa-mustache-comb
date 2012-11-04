@@ -23,4 +23,15 @@ comb = new MustacheComb();
 
 comb.addTemplateByFile('html.mustache');
 
+comb.views.push(
+    {
+        "body" : "<p>weeeeee</p>",
+        "title" : "Awesome"
+    },
+    {
+        "body" : "<p>Wohoooo!</p>",
+        "title" : "Awesome2"
+    }
+);
+
 comb.renderViews(MustacheComb.mainMustache);
