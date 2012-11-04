@@ -1,0 +1,25 @@
+{
+                    
+    "name"          : "mustache-comb",
+    "version"       : "0.1.0",
+    "main"          : "./MustacheComb.js",
+    "description"   : "A utility wrapper around mustache.",
+    "keywords"      : ["mustache", "template", "utilities"],
+    "homepage"      : "https://github.com/matthewkastor/mustache-comb/",
+    "bugs"          : "https://github.com/matthewkastor/mustache-comb/issues",
+    "author"        : {
+                        "name"      : "Matthew Kastor",
+                        "email"     : "matthewkastor@gmail.com",
+                        "url"       : "https://plus.google.com/100898583798552211130"
+    },
+    "repository"    : {
+                        "type"      : "git",
+                        "url"       : "git://github.com/matthewkastor/mustache-comb.git"
+    },
+    "engines"       : {
+                        "node"      : ">=0.8.14"
+    },
+    "dependencies"  : {
+                        "mustache"  : "*"
+    }
+}
