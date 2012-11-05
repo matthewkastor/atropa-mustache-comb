@@ -4,7 +4,7 @@
     "version"       : "0.1.2",
     "main"          : "./atropa-mustache-comb.js",
     "description"   : "A utility wrapper around mustache.",
-    "keywords"      : ["mustache", "template", "utilities"],
+    "keywords"      : ["mustache", "template", "utilities", "atropa"],
     "homepage"      : "https://github.com/matthewkastor/atropa-mustache-comb/",
     "bugs"          : "https://github.com/matthewkastor/atropa-mustache-comb/issues",
     "author"        : {
@@ -19,7 +19,7 @@
     "engines"       : {
                         "node"      : ">=0.8.14"
     },
-    "dependencies"  : {
+    "bundledDependencies"  : {
                         "mustache"                  : "git://github.com/janl/mustache.js.git#master",
                         "atropa-text-transformers"  : "*"
     }
