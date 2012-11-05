@@ -22,7 +22,7 @@
     "dependencies"  : {
                         "atropa-text-transformers"  : "*"
     },
-    "bundledDependencies"  : {
-                        "mustache"                  : "git://github.com/janl/mustache.js.git#master"
-    }
+    "bundledDependencies"  : [
+                        "mustache"
+    ]
 }
