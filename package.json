@@ -19,8 +19,10 @@
     "engines"       : {
                         "node"      : ">=0.8.14"
     },
-    "bundledDependencies"  : {
-                        "mustache"                  : "git://github.com/janl/mustache.js.git#master",
+    "dependencies"  : {
                         "atropa-text-transformers"  : "*"
+    },
+    "bundledDependencies"  : {
+                        "mustache"                  : "git://github.com/janl/mustache.js.git#master"
     }
 }
