@@ -1,7 +1,7 @@
 {
                     
     "name"          : "atropa-mustache-comb",
-    "version"       : "0.1.4",
+    "version"       : "0.1.5",
     "main"          : "./atropa-mustache-comb.js",
     "description"   : "A utility wrapper around mustache.",
     "keywords"      : ["mustache", "template", "utilities", "atropa"],

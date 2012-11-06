@@ -7,6 +7,8 @@
  * @file This file contains the base MustacheComb class.
  * @author <a href="matthewkastor@gmail.com">Matthew Kastor</a>
  * @version 20121030
+ * @requires events
+ * @requires util
  * @requires fs
  * @requires path
  * @requires mustache
@@ -15,10 +17,12 @@
  */
 
 'use strict';
-var events, util;
+var events, util, fs, path;
 
 events = require('events');
 util   = require('util');
+fs               = require('fs');
+path             = require('path');
 
 /**
  * The Base MustacheComb class. The templates
@@ -29,6 +33,8 @@ util   = require('util');
  * @param {Array} views An array of view objects. Defaults to an empty array.
  * @param {String} outdir The directory where you want files to eventually
  *  end up. Defaults to the current working directory.
+ * @requires events
+ * @requires util
  * @requires fs
  * @requires path
  * @requires mustache
@@ -37,12 +43,10 @@ util   = require('util');
 function MustacheComb(views) {
     events.EventEmitter.call(this);
     
-    var my, fs, path, textTransformers;
-
-    fs               = require('fs');
-    path             = require('path');
-    textTransformers = require('atropa-text-transformers');
+    var my;
+    
     my               = this;
+    my.textTransformers = require('atropa-text-transformers');
     my.Mustache      = require('mustache');
     my.views         = views || [];
     
