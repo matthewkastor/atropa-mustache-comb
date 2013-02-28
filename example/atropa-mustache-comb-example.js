@@ -14,40 +14,28 @@ MustacheComb.prototype.mainMustache = function mainMustache(view) {
     var out, mustacheTemplateParts;
     // the generic page structure used repeatedly.
     mustacheTemplateParts = {
-        "body" : view.body
+        "body" : view.body + ' the title is: {{title}}'
     };
+    console.log(mustacheTemplateParts);
     this.mustacheTagHandlers.title = view.title;
-    out = this.Mustache.to_html(this.templates.html, this.mustacheTagHandlers, mustacheTemplateParts);
+    out = this.Mustache.render(this.templates.html, this.mustacheTagHandlers, mustacheTemplateParts);
     return out;
 };
-
-function lame(view) {
-    var out, mustacheTemplateParts;
-    // the generic page structure used repeatedly.
-    mustacheTemplateParts = {
-        "body" : view.body
-    };
-    
-    comb.mustacheTagHandlers.title = view.title;
-    out = comb.Mustache.to_html(comb.templates.html, comb.mustacheTagHandlers, mustacheTemplateParts);
-    return out;
-};
-
 
 comb.addTemplateByFile('html', 'html.mustache');
 
 comb.views.push(
     {
-        "body" : "<p>weeeeee</p>",
+        "body" : "weeeeee",
         "title" : "Awesome"
     },
     {
-        "body" : "<p>Wohoooo!</p>",
+        "body" : "Wohoooo!",
         "title" : "Awesome2"
     }
 );
-function cb(v) {
-    console.log(lame(v));
+function cb(view) {
+    console.log(comb.mainMustache(view));
 }
 
 comb.renderViews(cb);

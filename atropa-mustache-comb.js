@@ -1,4 +1,10 @@
-/*jslint indent: 4, maxerr: 50, white: true, node: true, stupid: true, evil: true */
+/*jslint
+    indent: 4,
+    maxerr: 50,
+    white: true,
+    node: true,
+    stupid: true
+*/
 /*global Mustache */
 
 // templates.example, templates.includes
@@ -21,8 +27,8 @@ var events, util, fs, path;
 
 events = require('events');
 util   = require('util');
-fs               = require('fs');
-path             = require('path');
+fs     = require('fs');
+path   = require('path');
 
 /**
  * The Base MustacheComb class. The templates
@@ -31,24 +37,86 @@ path             = require('path');
  *  your own tag handler and template registries.
  * @class
  * @param {Array} views An array of view objects. Defaults to an empty array.
- * @param {String} outdir The directory where you want files to eventually
- *  end up. Defaults to the current working directory.
  * @requires events
  * @requires util
  * @requires fs
  * @requires path
  * @requires mustache
  * @requires textTransformers
+ * @example
+ *  var MustacheComb, comb;
+ *  
+ *  MustacheComb = require('atropa-mustache-comb').MustacheComb;
+ *  
+ *  comb = new MustacheComb();
+ *  
+ *  // adds handling of "thingy" tags.
+ *  // this function must be appended to the prototype in order
+ *  // for the addTagHandlerFunction to work properly
+ *  // "thingy" tags will be replaced with their original text content
+ *  // concatenated with "woop woop!!"
+ *  MustacheComb.prototype.formatThingy = function (text) {
+ *      return text + ' woop woop!!';
+ *  };
+ *  comb.addTagHandlerFunction('thingy', 'formatThingy');
+ *  
+ *  // adds "wonderful" template by string
+ *   comb.addTemplateByString('wonderful', 'OMFG!! OMFG!! {{greatNews}}\r\n' +
+ *       '{{#thingy}}Ain\'t it great news{{/thingy}}\r\n{{>sig}}');
+ *  
+ *  // you could also just add string templates directly to the templates
+ *  // property
+ *  // comb.templates.wonderful = 'OMFG!! OMFG!! {{greatNews}}\r\n' +
+ *  //     '{{#thingy}}Ain\'t it great news{{/thingy}}\r\n{{>sig}}';
+ *  
+ *  // if the wonderful template were in a file called wonderful.mustache
+ *  // then we could add it with
+ *  // comb.addTemplateByFile('wonderful', 'wonderful.mustache', 'utf8');
+ *  
+ *  // a view is just an object.
+ *  var sticker = {};
+ *  sticker.greatNews = 'I got a free sticker!';
+ *  sticker.signature = 'Huzzah!';
+ *  
+ *  // add a view by pushing it onto the views array
+ *  comb.views.push(
+ *      sticker,
+ *      { 'greatNews' : 'I got a coconut!', 'signature' : 'Jimmy!' },
+ *      { 'greatNews' : 'I got a penny!', 'signature' : 'Jane!' }
+ *  );
+ *  
+ *  // to render views you need to define a renderer function
+ *  // this renderer function does not have to be appended to the
+ *  // MustacheComb prototype but I find it convenient to do so.
+ *  // the renderer function will take a view, and render it to the screen,
+ *  // to a file, or however you see fit. This renderer function will
+ *  // then be given as the argument to renderViews which will pass it
+ *  // each view. Or you can do something more complex and confusing.
+ *  
+ *  MustacheComb.prototype.renderer = function renderer(view) {
+ *      var out, mustacheTemplateParts;
+ *      // the generic page structure used repeatedly.
+ *      mustacheTemplateParts = {
+ *          "sig" : view.signature
+ *      };
+ *      out = this.Mustache.to_html(
+ *          this.templates.wonderful,
+ *          this.mustacheTagHandlers,
+ *          mustacheTemplateParts);
+ *      console.log(out);
+ *  };
+ *  
+ *  comb.renderViews(comb.renderer);
+ *  
  */
 function MustacheComb(views) {
     events.EventEmitter.call(this);
     
-    var my;
+    var my = this;
     
-    my               = this;
-    my.textTransformers = require('atropa-text-transformers');
-    my.Mustache      = require('mustache');
-    my.views         = views || [];
+    my.textTransformers= require('atropa-text-transformers');
+    my.Mustache        = require('mustache');
+    my.views           = views || [];
     
     /**
      * Contains functions for handling mustache tags.
@@ -97,7 +165,8 @@ function MustacheComb(views) {
      * @function
      * @param {String} handles The name of the tag to handle {{#whatever}}{{/whatever}}
      * @param {String} func The name of a function which has been added
-     *  to the MustacheComb prototype.
+     *  to the MustacheComb prototype. It will receive two arguments: text, and
+     *  whatever. Text is the text content from within the mustache tag.
      * @see MustacheComb
      */
     my.addTagHandlerFunction = function(handles, func) {
@@ -118,7 +187,7 @@ util.inherits(MustacheComb, events.EventEmitter);
  * Tag handler for the example tag. Formats the text for html
  *  and prettification.
  * @function`
- * @param {String} text A string of text to process.
+ * @param {String} text A string of text (example code) to process.
  */
 MustacheComb.prototype.formatExample = function formatExample(text) {
     var my, parts, offset, code, html;
@@ -154,11 +223,11 @@ MustacheComb.prototype.formatExample = function formatExample(text) {
 /**
  * Base Function for including files. Fetches file contents.
  * @param {String} relPath The path to the file to include.
- * @returns Returns the contents of the file.
+ * @returns Returns the contents of the file or an html link to the unreadable
+ *  path.
  */
 MustacheComb.prototype.includeFile = function includeFile(relPath) {
-    var out,
-        relPath;
+    var out;
         
     relPath = relPath.trim();
     
@@ -167,13 +236,13 @@ MustacheComb.prototype.includeFile = function includeFile(relPath) {
     } catch (e) {
         console.log('  MustacheComb.includeFile : ');
         console.log(String(e));
-        out = '<p>Documentation not found at <a href="' + relPath + '"><code>' + relPath + '</code></a></p>';
+        out = '<p>File not found at <a href="' + relPath + '"><code>' + relPath + '</code></a></p>';
     }
     return out;
 };
 
 /**
- * Function for including example files.
+ * Function for including example code from files.
  * @param {String} text The path to the file to include.
  * @returns Returns the contents of the file formatted for HTML.
  */
@@ -190,9 +259,8 @@ MustacheComb.prototype.includeExample = function includeExample(relPath) {
  * @returns Returns the contents of the file.
  */
 MustacheComb.prototype.mustacheIncluder = function mustacheIncluder(relPath) {
-    var out,
-        relPath;
-    // the text of the include tag is a path, possibly surrounded with whitespace.
+    var out;
+    // the text of the include tag is a path.
     out = this.includeFile(relPath);
     // Run the output through Mustache to parse any mustache tags it may contain.
     out = this.Mustache.to_html(this.templates.includes, this.mustacheTagHandlers, {includes : out});
@@ -202,11 +270,13 @@ MustacheComb.prototype.mustacheIncluder = function mustacheIncluder(relPath) {
 /**
  * Renders views from this.views objects array.
  * @function
+ * @property {Function} callback A callback function to perform on each view.
+ *  The callback receives  the rendered view. The callback could write the view
+ *  to a file, store it in a variable, etc.
  */
 MustacheComb.prototype.renderViews = function renderViews(callback) {
     var my = this;
     this.views.forEach(function (view) {
-        var rendered;
         my.emit('view render attempt ', {"view" : view});
         callback.call(my, view);
         my.emit('view rendered ', {"view" : view});
