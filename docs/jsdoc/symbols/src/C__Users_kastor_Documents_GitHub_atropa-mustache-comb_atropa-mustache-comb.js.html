@@ -18,7 +18,7 @@
 <span class='line'> 11</span> 
 <span class='line'> 12</span> </span><span class="COMM">/**
 <span class='line'> 13</span>  * @file This file contains the base MustacheComb class.
-<span class='line'> 14</span>  * @author &lt;a href="matthewkastor@gmail.com">Matthew Kastor&lt;/a>
+<span class='line'> 14</span>  * @author &lt;a href="mailto:matthewkastor@gmail.com">Matthew Kastor&lt;/a>
 <span class='line'> 15</span>  * @version 20121030
 <span class='line'> 16</span>  * @requires events
 <span class='line'> 17</span>  * @requires util
@@ -235,8 +235,8 @@
 <span class='line'>228</span>  */</span><span class="WHIT">
 <span class='line'>229</span> </span><span class="NAME">MustacheComb.prototype.includeFile</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="KEYW">function</span><span class="WHIT"> </span><span class="NAME">includeFile</span><span class="PUNC">(</span><span class="NAME">relPath</span><span class="PUNC">)</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>230</span> </span><span class="WHIT">    </span><span class="KEYW">var</span><span class="WHIT"> </span><span class="NAME">out</span><span class="PUNC">;</span><span class="WHIT">
-<span class='line'>231</span> </span><span class="WHIT">        
-<span class='line'>232</span>     </span><span class="NAME">relPath</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">relPath.trim</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
+<span class='line'>231</span> </span><span class="WHIT">    
+<span class='line'>232</span>     </span><span class="NAME">relPath</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">path.normalize</span><span class="PUNC">(</span><span class="NAME">relPath.trim</span><span class="PUNC">(</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">
 <span class='line'>233</span> </span><span class="WHIT">    
 <span class='line'>234</span>     </span><span class="KEYW">try</span><span class="WHIT"> </span><span class="PUNC">{</span><span class="WHIT">
 <span class='line'>235</span> </span><span class="WHIT">        </span><span class="NAME">out</span><span class="WHIT"> </span><span class="PUNC">=</span><span class="WHIT"> </span><span class="NAME">String</span><span class="PUNC">(</span><span class="NAME">fs.readFileSync</span><span class="PUNC">(</span><span class="NAME">relPath</span><span class="PUNC">)</span><span class="PUNC">)</span><span class="PUNC">;</span><span class="WHIT">

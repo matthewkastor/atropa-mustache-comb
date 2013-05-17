@@ -11,7 +11,7 @@
 
 /**
  * @file This file contains the base MustacheComb class.
- * @author <a href="matthewkastor@gmail.com">Matthew Kastor</a>
+ * @author <a href="mailto:matthewkastor@gmail.com">Matthew Kastor</a>
  * @version 20121030
  * @requires events
  * @requires util
