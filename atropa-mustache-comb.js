@@ -18,7 +18,7 @@
  * @requires fs
  * @requires path
  * @requires mustache
- * @requires textTransformers
+ * @requires atropa-string
  * @exports MustacheComb
  */
 
@@ -42,7 +42,7 @@ path   = require('path');
  * @requires fs
  * @requires path
  * @requires mustache
- * @requires textTransformers
+ * @requires atropa-string
  * @example
  *  var MustacheComb, comb;
  *  
@@ -114,7 +114,7 @@ function MustacheComb(views) {
     
     var my = this;
     
-    my.textTransformers= require('atropa-text-transformers');
+    my.textTransformers= require('atropa-string');
     my.Mustache        = require('mustache');
     my.views           = views || [];
     
