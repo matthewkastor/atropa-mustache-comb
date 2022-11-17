@@ -1,5 +1,4 @@
 logs/
-node_modules/atropa-text-transformers/
 npm-debug.log
 #################
 ## Eclipse
@@ -168,3 +167,4 @@ pip-log.txt
 
 /.vs
 /package-lock.json
+/node_modules
