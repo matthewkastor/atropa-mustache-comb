@@ -5,9 +5,11 @@
     
 
     window.MustacheComb = function(views){
-        /// <summary></summary>
+        /// <summary>The Base MustacheComb class. The templates
+        /// ///  and tag handlers shown in their registries will be loaded so, if
+        /// ///  you want to use this class directly then you&amp;apos;ll need to reference
+        /// ///  your own tag handler and template registries.</summary>
         /// <param name="views" type="Array">An array of view objects. Defaults to an empty array.</param>
-        /// <returns type="MustacheComb"/>
     };
 
     var $x = window.MustacheComb;
